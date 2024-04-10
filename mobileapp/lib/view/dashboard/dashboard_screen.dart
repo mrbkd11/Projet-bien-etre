@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:fitnessapp/utils/app_colors.dart';
 import 'package:fitnessapp/view/activity/activity_screen.dart';
 import 'package:fitnessapp/view/camera/camera_screen.dart';
+import 'package:fitnessapp/view/chatbot/chatScreen.dart';
 import 'package:fitnessapp/view/profile/user_profile.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       backgroundColor: AppColors.whiteColor,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pushNamed(ChatScreen
+              .routeName); // Ensure you have defined routeName static variable in your ChatScreen
+        },
         child: SizedBox(
           width: 70,
           height: 70,
@@ -46,8 +50,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 boxShadow: const [
                   BoxShadow(color: Colors.black12, blurRadius: 2)
                 ]),
-            child: const Icon(Icons.search_sharp,
-                color: AppColors.whiteColor, size: 32),
+            child: const Icon(
+                Icons
+                    .forum, // Changed to a forum icon, which can represent chat
+                color: AppColors.whiteColor,
+                size: 32),
           ),
         ),
       ),
@@ -65,9 +72,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               color: AppColors.whiteColor,
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 2,
-                    offset: Offset(0, -2))
+                    color: Colors.black12, blurRadius: 2, offset: Offset(0, -2))
               ]),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

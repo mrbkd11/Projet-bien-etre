@@ -1,21 +1,21 @@
+import 'package:fitnessapp/common_widgets/round_button.dart';
 import 'package:fitnessapp/utils/app_colors.dart';
 import 'package:fitnessapp/view/activity/widgets/upcoming_workout_row.dart';
 import 'package:fitnessapp/view/activity/widgets/what_train_row.dart';
-import 'package:fitnessapp/view/exercice_detail_overview/MeditationYogaDetailView.dart';
+import 'package:fitnessapp/view/workour_detail_view/workour_detail_view.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../../common_widgets/round_button.dart';
-import '../workour_detail_view/workour_detail_view.dart';
+class ExerciceScreen extends StatefulWidget {
+  static const String routeName = "/ExerciceScreen";
 
-class ActivityScreen extends StatefulWidget {
-  const ActivityScreen({Key? key}) : super(key: key);
+  const ExerciceScreen({Key? key}) : super(key: key);
 
   @override
-  State<ActivityScreen> createState() => _ActivityScreenState();
+  State<ExerciceScreen> createState() => _ExerciceScreenState();
 }
 
-class _ActivityScreenState extends State<ActivityScreen> {
+class _ExerciceScreenState extends State<ExerciceScreen> {
   List latestArr = [
     {
       "image": "assets/images/Workout1.png",
@@ -63,17 +63,16 @@ class _ActivityScreenState extends State<ActivityScreen> {
               backgroundColor: Colors.transparent,
               centerTitle: true,
               elevation: 0,
-              // pinned: true,
-              title: const Text(
-                "Workout Tracker",
-                style: TextStyle(
-                    color: AppColors.whiteColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700),
-              ),
+              title: const Text("Mindfulness Tracker",
+                  style: TextStyle(
+                      color: AppColors.whiteColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700)),
               actions: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    // Action for settings or customization
+                  },
                   child: Container(
                     margin: const EdgeInsets.all(8),
                     height: 40,
@@ -82,14 +81,10 @@ class _ActivityScreenState extends State<ActivityScreen> {
                     decoration: BoxDecoration(
                         color: AppColors.lightGrayColor,
                         borderRadius: BorderRadius.circular(10)),
-                    child: Image.asset(
-                      "assets/icons/more_icon.png",
-                      width: 15,
-                      height: 15,
-                      fit: BoxFit.contain,
-                    ),
+                    child: Image.asset("assets/icons/more_icon.png",
+                        width: 15, height: 15, fit: BoxFit.contain),
                   ),
-                )
+                ),
               ],
             ),
             SliverAppBar(
@@ -101,106 +96,55 @@ class _ActivityScreenState extends State<ActivityScreen> {
               expandedHeight: media.height * 0.21,
               flexibleSpace: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                height: media.width * 0.5,
-                width: double.maxFinite,
                 child: LineChart(
                   LineChartData(
-                    lineTouchData: LineTouchData(
-                      enabled: true,
-                      handleBuiltInTouches: false,
-                      touchCallback:
-                          (FlTouchEvent event, LineTouchResponse? response) {
-                        if (response == null || response.lineBarSpots == null) {
-                          return;
-                        }
-                        // if (event is FlTapUpEvent) {
-                        //   final spotIndex =
-                        //       response.lineBarSpots!.first.spotIndex;
-                        //   showingTooltipOnSpots.clear();
-                        //   setState(() {
-                        //     showingTooltipOnSpots.add(spotIndex);
-                        //   });
-                        // }
-                      },
-                      mouseCursorResolver:
-                          (FlTouchEvent event, LineTouchResponse? response) {
-                        if (response == null || response.lineBarSpots == null) {
-                          return SystemMouseCursors.basic;
-                        }
-                        return SystemMouseCursors.click;
-                      },
-                      getTouchedSpotIndicator:
-                          (LineChartBarData barData, List<int> spotIndexes) {
-                        return spotIndexes.map((index) {
-                          return TouchedSpotIndicatorData(
-                            FlLine(
-                              color: Colors.transparent,
-                            ),
-                            FlDotData(
-                              show: true,
-                              getDotPainter: (spot, percent, barData, index) =>
-                                  FlDotCirclePainter(
-                                radius: 3,
-                                color: Colors.white,
-                                strokeWidth: 3,
-                                strokeColor: AppColors.secondaryColor1,
-                              ),
-                            ),
-                          );
-                        }).toList();
-                      },
-                      touchTooltipData: LineTouchTooltipData(
-                        tooltipBgColor: AppColors.secondaryColor1,
-                        tooltipRoundedRadius: 20,
-                        getTooltipItems: (List<LineBarSpot> lineBarsSpot) {
-                          return lineBarsSpot.map((lineBarSpot) {
-                            return LineTooltipItem(
-                              "${lineBarSpot.x.toInt()} mins ago",
-                              const TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            );
-                          }).toList();
-                        },
-                      ),
-                    ),
-                    lineBarsData: lineBarsData1,
-                    minY: -0.5,
-                    maxY: 110,
+                    lineTouchData: LineTouchData(enabled: false),
+                    lineBarsData: lineBarsData,
+                    minY: 0,
+                    maxY: 50,
                     titlesData: FlTitlesData(
-                        show: true,
-                        leftTitles: AxisTitles(),
-                        topTitles: AxisTitles(),
-                        bottomTitles: AxisTitles(
-                          sideTitles: bottomTitles,
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          reservedSize: 22,
+                          getTitlesWidget: (value, meta) {
+                            return Text(
+                              [
+                                'Sun',
+                                'Mon',
+                                'Tue',
+                                'Wed',
+                                'Thu',
+                                'Fri',
+                                'Sat'
+                              ][value.toInt() - 1],
+                              style: TextStyle(
+                                  color: AppColors.whiteColor, fontSize: 10),
+                            );
+                          },
                         ),
-                        rightTitles: AxisTitles(
-                          sideTitles: rightTitles,
-                        )),
-                    gridData: FlGridData(
-                      show: true,
-                      drawHorizontalLine: true,
-                      horizontalInterval: 25,
-                      drawVerticalLine: false,
-                      getDrawingHorizontalLine: (value) {
-                        return FlLine(
-                          color: AppColors.whiteColor.withOpacity(0.15),
-                          strokeWidth: 2,
-                        );
-                      },
-                    ),
-                    borderData: FlBorderData(
-                      show: true,
-                      border: Border.all(
-                        color: Colors.transparent,
                       ),
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          getTitlesWidget: (value, meta) {
+                            return Text('$value',
+                                style: TextStyle(
+                                    color: AppColors.whiteColor, fontSize: 10));
+                          },
+                        ),
+                      ),
+                      rightTitles:
+                          AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      topTitles:
+                          AxisTitles(sideTitles: SideTitles(showTitles: false)),
                     ),
+                    gridData: FlGridData(show: false),
+                    borderData: FlBorderData(show: false),
                   ),
                 ),
               ),
-            )
+            ),
           ];
         },
         body: Container(
@@ -250,10 +194,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                             height: 25,
                             child: RoundButton(
                               title: "Check",
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, ExerciceScreen.routeName);
-                              },
+                              onPressed: () {},
                             ),
                           )
                         ],
@@ -344,133 +285,88 @@ class _ActivityScreenState extends State<ActivityScreen> {
         ),
       );
 
-  List<LineChartBarData> get lineBarsData1 => [
-        lineChartBarData1_1,
-        lineChartBarData1_2,
+  List<LineChartBarData> get lineBarsData => [
+        LineChartBarData(
+          isCurved: true,
+          curveSmoothness: 0.2, // Adjust the curve's smoothness
+          color: AppColors
+              .primaryColor1, // Consider using a color that fits the meditation/yoga theme
+          barWidth: 4,
+          isStrokeCapRound: true,
+          dotData: FlDotData(show: false),
+          belowBarData: BarAreaData(
+              show: true,
+              color: AppColors.primaryColor1.withOpacity(
+                  0.1)), // Adding a subtle area color beneath the curve
+          spots: const [
+            FlSpot(1, 2),
+            FlSpot(2, 1.5),
+            FlSpot(3, 2.8),
+            FlSpot(4, 2.2),
+            FlSpot(5, 3),
+            FlSpot(6, 2.5),
+            FlSpot(7, 3.1),
+          ],
+        ),
+        // You can add a second curve here if necessary
       ];
-
-  LineChartBarData get lineChartBarData1_1 => LineChartBarData(
-        isCurved: true,
-        color: AppColors.whiteColor,
-        barWidth: 4,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-        spots: const [
-          FlSpot(1, 35),
-          FlSpot(2, 70),
-          FlSpot(3, 40),
-          FlSpot(4, 80),
-          FlSpot(5, 25),
-          FlSpot(6, 70),
-          FlSpot(7, 35),
-        ],
-      );
-
-  LineChartBarData get lineChartBarData1_2 => LineChartBarData(
-        isCurved: true,
-        color: AppColors.whiteColor.withOpacity(0.5),
-        barWidth: 2,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(
-          show: false,
-        ),
-        spots: const [
-          FlSpot(1, 80),
-          FlSpot(2, 50),
-          FlSpot(3, 90),
-          FlSpot(4, 40),
-          FlSpot(5, 80),
-          FlSpot(6, 35),
-          FlSpot(7, 60),
-        ],
-      );
-
-  SideTitles get rightTitles => SideTitles(
-        getTitlesWidget: rightTitleWidgets,
-        showTitles: true,
-        interval: 20,
-        reservedSize: 40,
-      );
-
-  Widget rightTitleWidgets(double value, TitleMeta meta) {
-    String text;
-    switch (value.toInt()) {
-      case 0:
-        text = '0%';
-        break;
-      case 20:
-        text = '20%';
-        break;
-      case 40:
-        text = '40%';
-        break;
-      case 60:
-        text = '60%';
-        break;
-      case 80:
-        text = '80%';
-        break;
-      case 100:
-        text = '100%';
-        break;
-      default:
-        return Container();
-    }
-
-    return Text(text,
-        style: TextStyle(
-          color: AppColors.whiteColor,
-          fontSize: 12,
-        ),
-        textAlign: TextAlign.center);
-  }
 
   SideTitles get bottomTitles => SideTitles(
         showTitles: true,
-        reservedSize: 32,
+        reservedSize: 22,
         interval: 1,
         getTitlesWidget: bottomTitleWidgets,
       );
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     var style = TextStyle(
-      color: AppColors.whiteColor,
-      fontSize: 12,
+      color: AppColors.whiteColor, // Adjust as necessary
+      fontSize: 10,
     );
-    Widget text;
+    String text;
     switch (value.toInt()) {
       case 1:
-        text = Text('Sun', style: style);
+        text = 'Sun';
         break;
       case 2:
-        text = Text('Mon', style: style);
+        text = 'Mon';
         break;
       case 3:
-        text = Text('Tue', style: style);
+        text = 'Tue';
         break;
       case 4:
-        text = Text('Wed', style: style);
+        text = 'Wed';
         break;
       case 5:
-        text = Text('Thu', style: style);
+        text = 'Thu';
         break;
       case 6:
-        text = Text('Fri', style: style);
+        text = 'Fri';
         break;
       case 7:
-        text = Text('Sat', style: style);
+        text = 'Sat';
         break;
       default:
-        text = const Text('');
+        text = '';
         break;
     }
 
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      space: 10,
-      child: text,
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0), // Adjust padding as necessary
+      child: Text(text, style: style),
     );
   }
+
+  SideTitles get leftTitles => SideTitles(
+        showTitles: true,
+        interval: 1, // Adjust the interval for better granularity
+        getTitlesWidget: (value, meta) {
+          var style = TextStyle(
+            color: AppColors.whiteColor, // Adjust as necessary
+            fontSize: 10,
+          );
+          // Define the text based on value
+          return Text('$value', style: style);
+        },
+      );
 }

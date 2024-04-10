@@ -1,10 +1,10 @@
 import 'package:fitnessapp/utils/app_colors.dart';
 import 'package:fitnessapp/view/signup/signup_screen.dart';
+import 'package:fitnessapp/view/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/round_gradient_button.dart';
 import '../../common_widgets/round_textfield.dart';
-import '../profile/complete_profile_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   static String routeName = "/LoginScreen";
@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 25),
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
           child: Column(
             children: [
               SizedBox(
@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: media.width*0.03,
+                      height: media.width * 0.03,
                     ),
                     const Text(
                       "Hey there,",
@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(height: media.width*0.01),
+                    SizedBox(height: media.width * 0.01),
                     const Text(
                       "Welcome Back",
                       textAlign: TextAlign.center,
@@ -51,12 +51,12 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: media.width*0.05),
+              SizedBox(height: media.width * 0.05),
               const RoundTextField(
                   hintText: "Email",
                   icon: "assets/icons/message_icon.png",
                   textInputType: TextInputType.emailAddress),
-              SizedBox(height: media.width*0.05),
+              SizedBox(height: media.width * 0.05),
               RoundTextField(
                 hintText: "Password",
                 icon: "assets/icons/lock_icon.png",
@@ -76,7 +76,7 @@ class LoginScreen extends StatelessWidget {
                           color: AppColors.grayColor,
                         ))),
               ),
-              SizedBox(height: media.width*0.03),
+              SizedBox(height: media.width * 0.03),
               const Text("Forgot your password?",
                   style: TextStyle(
                     color: AppColors.grayColor,
@@ -86,18 +86,18 @@ class LoginScreen extends StatelessWidget {
               RoundGradientButton(
                 title: "Login",
                 onPressed: () {
-                  Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                  Navigator.pushNamed(context, WelcomeScreen.routeName);
                 },
               ),
-              SizedBox(height: media.width*0.01),
+              SizedBox(height: media.width * 0.01),
               Row(
                 children: [
                   Expanded(
                       child: Container(
-                        width: double.maxFinite,
-                        height: 1,
-                        color: AppColors.grayColor.withOpacity(0.5),
-                      )),
+                    width: double.maxFinite,
+                    height: 1,
+                    color: AppColors.grayColor.withOpacity(0.5),
+                  )),
                   Text("  Or  ",
                       style: TextStyle(
                           color: AppColors.grayColor,
@@ -105,10 +105,10 @@ class LoginScreen extends StatelessWidget {
                           fontWeight: FontWeight.w400)),
                   Expanded(
                       child: Container(
-                        width: double.maxFinite,
-                        height: 1,
-                        color: AppColors.grayColor.withOpacity(0.5),
-                      )),
+                    width: double.maxFinite,
+                    height: 1,
+                    color: AppColors.grayColor.withOpacity(0.5),
+                  )),
                 ],
               ),
               const SizedBox(
@@ -118,34 +118,46 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: () {
-
-                    },
+                    onTap: () {},
                     child: Container(
                       width: 50,
                       height: 50,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: AppColors.primaryColor1.withOpacity(0.5), width: 1, ),
+                        border: Border.all(
+                          color: AppColors.primaryColor1.withOpacity(0.5),
+                          width: 1,
+                        ),
                       ),
-                      child: Image.asset("assets/icons/google_icon.png",width: 20,height: 20,),
+                      child: Image.asset(
+                        "assets/icons/google_icon.png",
+                        width: 20,
+                        height: 20,
+                      ),
                     ),
                   ),
-                  SizedBox(width: 30,),
+                  SizedBox(
+                    width: 30,
+                  ),
                   GestureDetector(
-                    onTap: () {
-
-                    },
+                    onTap: () {},
                     child: Container(
                       width: 50,
                       height: 50,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: AppColors.primaryColor1.withOpacity(0.5), width: 1, ),
+                        border: Border.all(
+                          color: AppColors.primaryColor1.withOpacity(0.5),
+                          width: 1,
+                        ),
                       ),
-                      child: Image.asset("assets/icons/facebook_icon.png",width: 20,height: 20,),
+                      child: Image.asset(
+                        "assets/icons/facebook_icon.png",
+                        width: 20,
+                        height: 20,
+                      ),
                     ),
                   ),
                 ],
